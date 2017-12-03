@@ -6,6 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Auth extends CI_Controller
 {
+	const AFTER_LOGIN = "../../../app/foobar/";
+	const LOGIN_REDIRECT = "../../../app/";
 	public function __construct()
 	{
 		parent::__construct();
@@ -56,15 +58,15 @@ class Auth extends CI_Controller
 
 			//リダイレクト前にセッション更新
 			session_regenerate_id(true);
-			redirect("../../../app/foobar/");
+			redirect(self::AFTER_LOGIN);
 		} catch (Exception $e) {
 			log_message("error", $e->getMessage());
-			redirect("../../../app/");
+			redirect(self::LOGIN_REDIRECT);
 		}
 	}
 	public function logout()
 	{
 		session_destroy();
-		redirect("../../../app/");
+		redirect(self::LOGIN_REDIRECT);
 	}
 }
