@@ -1,4 +1,5 @@
 <?php
+use Mebius\Net\CSPManager;
 /**
  * Commonlib CI で共通して使う共通クラス
  */
@@ -13,7 +14,7 @@ class Commonlib
 	 * @param string $code 送られてきた csrf チェック用コード
 	 * @throws Exception コードが一致しない場合に例外
 	 */
-	public function checkcsrf($code)
+	public function checkcsrf(string $code)
 	{
 		if (!(session_id() === $code)) {
 			throw new Exception("invalid access detected", 1);
@@ -24,7 +25,7 @@ class Commonlib
 	 * @param string $fileName 出力する html のファイルパス(相対)
 	 * @param array $param テンプレートエンジンに渡すパラメーター
 	 */
-	public function render($fileName, $param = [])
+	public function render(string $fileName, array $param, CSPManager $csp = null)
 	{
 		$loader = new Twig_Loader_Filesystem(VIEWPATH . "/templates");
 		$twig = new Twig_Environment($loader);
@@ -33,24 +34,13 @@ class Commonlib
 		header("X-XSS-Protection: '1; mode=block'");
 		header("X-Content-Type-Options: nosniff");
 		header("content-type: text/html; charset=utf-8");
-		// header($this->makeCSPHeader());
+
+		if ($csp === null) {
+			$csp = new CSPManager();
+		}
+		header($cspHeader = $csp->getCSP());
+
 		echo $twig->render($fileName, $param);
-	}
-	/**
-	 * CSP ヘッダーを出力するメソッド
-	 * @return string csp ヘッダー文字列
-	 */
-	private function makeCSPHeader()
-	{
-		$cspBase = "Content-Security-Policy: default-src 'self';";
-		$image = "img-src 'self' data: blob:;";
-		$style = "style-src 'self' 'unsafe-inline';";
-		$script = "script-src 'self'";
-		$frame = "frame-src 'self'";
-		$child = "child-src 'self'";
-		$connect = "connect-src 'self';";
-		// $report = "report-uri /report.php";
-		return $cspBase . $image . $style . $script . $frame . $child . $connect;
 	}
 	/**
 	 * json を出力するメソッド
