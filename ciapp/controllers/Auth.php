@@ -26,7 +26,7 @@ class Auth extends CI_Controller
 	{
 		try {
 			//csrf チェック
-			$this->commonlib->checkcsrf($this->input->post("code"));
+			$this->commonlib->checkcsrf((string)$this->input->post("code"));
 
 			//バリデーター
 			$this->load->library('form_validation');
