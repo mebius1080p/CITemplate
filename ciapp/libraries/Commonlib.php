@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 use Mebius\Net\CSPManager;
 /**
  * Commonlib CI で共通して使う共通クラス
