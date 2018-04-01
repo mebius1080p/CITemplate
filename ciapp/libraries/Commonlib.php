@@ -31,7 +31,7 @@ class Commonlib
 		$twig = new Twig_Environment($loader);
 		// apache の vhost などでヘッダー出力する場合は不要
 		header("X-Frame-Options:  SAMEORIGIN");
-		header("X-XSS-Protection: '1; mode=block'");
+		header("X-XSS-Protection: 1; mode=block");
 		header("X-Content-Type-Options: nosniff");
 		header("content-type: text/html; charset=utf-8");
 
