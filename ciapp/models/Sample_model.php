@@ -57,7 +57,7 @@ class Sample_model extends CI_Model
 		$hit = 0;
 		try {
 			$sql = sprintf(self::SEARCH_COUNT_SQL, self::TABLE_NAME, $xxxscb->getCondition());
-			$query = $this->db->query($sql, [$cscb->getPlaceHolder()]);
+			$query = $this->db->query($sql, [$xxxscb->getPlaceHolder()]);
 			$result = $query->result();
 			$hit = $result[0]->cnt;//クエリが失敗することは想定しない
 		} catch (Exception $e) {
