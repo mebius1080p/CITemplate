@@ -115,7 +115,7 @@ class Sample extends CI_Controller
 				"code" => session_id(),
 				"xxx" => $xxxo
 			];
-			$this->commonlib->render("categxxxxxxxxxxxxory/detail.html", $param);
+			$this->commonlib->render("xxxxxxxx/detail.html", $param);
 		} catch (Exception $e) {
 			log_message("error", $e->getMessage());
 			redirect("/xxxxxxxxxxxxxxx/");
