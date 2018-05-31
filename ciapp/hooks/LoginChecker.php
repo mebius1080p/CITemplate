@@ -8,7 +8,7 @@ class LoginChecker
 	/**
 	 * @var array ログインチェックしない url
 	 */
-	const IGNORE_URLS = [
+	private const IGNORE_URLS = [
 		"",//空文字必須
 		"app",
 		"app/login",
@@ -21,7 +21,7 @@ class LoginChecker
 		$this->CI->load->helper('url');
 		$this->CI->load->library("Session_manager");
 	}
-	public function check()
+	public function check(): void
 	{
 		$accessURL =  $this->CI->uri->uri_string;
 		if (in_array($accessURL, self::IGNORE_URLS)) {

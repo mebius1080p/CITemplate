@@ -1,7 +1,7 @@
 <?php
 use XXX\DB\XXXXXXXXXXXSearchConditionBuilder;
 use XXX\Data\JsonObj;
-use XXX\Paging\{PagingCaluculator, PagingSearchResult};
+use XXX\Paging\PagingCaluculator;
 
 /**
  * Sample サンプルコントローラ

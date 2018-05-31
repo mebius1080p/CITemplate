@@ -6,8 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Auth extends CI_Controller
 {
-	const AFTER_LOGIN = "../../../app/foobar/";
-	const LOGIN_REDIRECT = "../../../app/";
+	private const AFTER_LOGIN = "../../../app/foobar/";
+	private const LOGIN_REDIRECT = "../../../app/";
 	public function __construct()
 	{
 		parent::__construct();
@@ -15,14 +15,14 @@ class Auth extends CI_Controller
 		$this->load->library("Commonlib");
 		$this->load->helper('url');
 	}
-	public function index()
+	public function index(): void
 	{
 		$param = [
 			"code" => session_id(),
 		];
 		$this->commonlib->render("login.html", $param);
 	}
-	public function login()
+	public function login(): void
 	{
 		try {
 			//csrf チェック
@@ -64,7 +64,7 @@ class Auth extends CI_Controller
 			redirect(self::LOGIN_REDIRECT);
 		}
 	}
-	public function logout()
+	public function logout(): void
 	{
 		session_destroy();
 		redirect(self::LOGIN_REDIRECT);

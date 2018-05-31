@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 use Mebius\Net\CSPManager;
+
 /**
  * Commonlib CI で共通して使う共通クラス
  */
@@ -15,7 +16,7 @@ class Commonlib
 	 * @param string $code 送られてきた csrf チェック用コード
 	 * @throws Exception コードが一致しない場合に例外
 	 */
-	public function checkcsrf(string $code)
+	public function checkcsrf(string $code): void
 	{
 		if (!(session_id() === $code)) {
 			throw new Exception("invalid access detected", 1);
@@ -25,8 +26,9 @@ class Commonlib
 	 * Twig で html 出力するメソッド
 	 * @param string $fileName 出力する html のファイルパス(相対)
 	 * @param array $param テンプレートエンジンに渡すパラメーター
+	 * @param CSPManager $csp CSPManager のインスタンス
 	 */
-	public function render(string $fileName, array $param, CSPManager $csp = null)
+	public function render(string $fileName, array $param, CSPManager $csp = null): void
 	{
 		$loader = new Twig_Loader_Filesystem(VIEWPATH . "/templates");
 		$twig = new Twig_Environment($loader);
@@ -47,7 +49,7 @@ class Commonlib
 	 * json を出力するメソッド
 	 * @param mixed $obj 配列や stdClass など
 	 */
-	public function json($obj)
+	public function json($obj): void
 	{
 		header("Content-Type: application/json; charset=utf-8");
 		echo json_encode($obj, JSON_UNESCAPED_UNICODE);
@@ -56,7 +58,7 @@ class Commonlib
 	 * デバッグ用メソッド
 	 * @param mixed $obj 何でも
 	 */
-	public function debug($obj)
+	public function debug($obj): void
 	{
 		if (!defined("DEBUG_FILE") || empty(DEBUG_FILE)) {
 			return;

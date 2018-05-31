@@ -1,12 +1,13 @@
 <?php
 use Foobar\DB\UserObj;
+
 /**
  * User_model user テーブルに関するモデルクラス
  */
 class User_model extends CI_Model
 {
-	const TABLE_NAME = "user";
-	const SELECT_BY_LOGINID_SQL = "SELECT * FROM %s WHERE user_login = ?";
+	private const TABLE_NAME = "user";
+	private const SELECT_BY_LOGINID_SQL = "SELECT * FROM %s WHERE user_login = ?";
 	public function __construct()
 	{
 		parent::__construct();
@@ -20,7 +21,7 @@ class User_model extends CI_Model
 	 * @return UserObj ユーザーレコード 1 件分
 	 * @throws Exception db エラーもしくはレコードがない場合に例外
 	 */
-	public function get_by_loginid($loginid)
+	public function get_by_loginid(string $loginid): UserObj
 	{
 		$sql = sprintf(self::SELECT_BY_LOGINID_SQL, self::TABLE_NAME);
 		$query = $this->db->query($sql, [$loginid]);
